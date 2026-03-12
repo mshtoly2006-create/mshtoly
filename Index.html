@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☠️ Eternal Smooth Chaos ☠️</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            margin: 0; padding: 0; overflow: hidden; 
+            background: #050505; 
+            background-image: radial-gradient(circle, #2a0000 0%, #000 75%); 
+            height: 100vh; display: flex; justify-content: center; align-items: center; 
+        }
+        
+        /* النص الأساسي ثابت وفخم وواضح جداً */
+        .main-content {
+            z-index: 50;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .gothic-text {
+            font-family: 'UnifrakturMaguntia', cursive;
+            font-size: 5rem;
+            color: #ffffff;
+            text-shadow: 0 0 20px #ff0000, 0 0 40px #aa0000;
+            letter-spacing: 3px;
+        }
+
+        /* تنسيق القلوب الناعمة */
+        .smooth-heart {
+            position: absolute;
+            color: rgba(255, 0, 0, 0.4);
+            pointer-events: none;
+            z-index: 10;
+            user-select: none;
+            /* أنيميشن التساقط والتلاشي معاً */
+            animation: smooth-fall-fade linear forwards;
+        }
+
+        @keyframes smooth-fall-fade {
+            0% { 
+                opacity: 0; 
+                transform: translateY(0) scale(0.5) rotate(0deg); 
+            }
+            20% { 
+                opacity: 0.8; /* تظهر بنعومة في البداية */
+            }
+            80% { 
+                opacity: 0.4; /* تبدأ تتلاشى قبل النهاية */
+            }
+            100% { 
+                opacity: 0; 
+                /* تتحرك لمسافة عشوائية لأسفل لكن تختفي تماماً قبل القاع */
+                transform: translateY(40vh) scale(1.2) rotate(20deg); 
+            }
+        }
+
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98); display: flex; justify-content: center;
+            align-items: center; z-index: 100; color: #666; cursor: pointer;
+            font-family: 'Courier New', monospace; letter-spacing: 5px; font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="overlay">... CLICK TO UNLEASH ...</div>
+
+<audio id="music" loop>
+    <source src="➴ 1 2.mp3" type="audio/mpeg">
+</audio>
+
+<div class="main-content">
+    <div class="gothic-text">mshtoly love toly 4ever</div>
+</div>
+
+<script>
+    const overlay = document.getElementById('overlay');
+    const music = document.getElementById('music');
+
+    overlay.addEventListener('click', () => {
+        music.play();
+        overlay.style.display = 'none';
+        
+        // ننتج قلوب برتم متوسط عشان ما تزدحم الشاشة (كل 150 جزء من الثانية)
+        setInterval(spawnSmoothHearts, 150); 
+    });
+
+    function spawnSmoothHearts() {
+        const heart = document.createElement("div");
+        heart.className = "smooth-heart";
+        
+        // تنويع أشكال القلوب
+        const shapes = ["🖤", "❤️", "🖤"];
+        heart.innerHTML = shapes[Math.floor(Math.random() * shapes.length)];
+        
+        // توزيع عشوائي في كل الشاشة
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = Math.random() * 100 + "vh";
+        
+        // أحجام مختلفة
+        heart.style.fontSize = Math.random() * 60 + 20 + "px"; 
+        
+        // مدة الأنيميشن (جعلتها طويلة 3-5 ثواني لتكون سموث)
+        heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        
+        document.body.appendChild(heart);
+
+        // إزالة العنصر من الذاكرة بعد انتهاء الأنيميشن
+        setTimeout(() => { heart.remove(); }, 5000);
+    }
+</script>
+</body>
+</html>
